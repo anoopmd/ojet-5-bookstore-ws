@@ -1,0 +1,11 @@
+/node_modules
+/bower_components
+
+.DS_Store
+Thumbs.db
+
+db-data/*
+!db-data/.gitkeep
+
+npm-debug.log
+yarn-error.log
