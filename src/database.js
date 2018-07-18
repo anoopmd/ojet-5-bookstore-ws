@@ -5,6 +5,11 @@ const userDB = new NeDB({
   autoload: true
 });
 
+const bookstoreDB = new NeDB({
+  filename: './db-data/bookstore.nedb',
+  autoload: true
+});
+
 const tokenDB = new NeDB({
   filename: './db-data/oauth-token.nedb',
   autoload: true
@@ -12,5 +17,6 @@ const tokenDB = new NeDB({
 
 module.exports = {
   userDB: userDB,
-  tokenDB: tokenDB
+  tokenDB: tokenDB,
+  bookstoreDB: bookstoreDB
 };

@@ -1,14 +1,14 @@
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const cors = require('cors');
+const database = require('./database');
+const oAuthModel = require('./oauth/access-token-model');
+const oAuth2Server = require('node-oauth2-server');
 
 const NeDB = require('nedb');
 const service = require('feathers-nedb');
 
-const db = new NeDB({
-  filename: '../db-data/bookstore',
-  autoload: true
-});
+const db = database.bookstoreDB;
 
 // Create an Express compatible Feathers application instance.
 const app = express(feathers());
@@ -24,6 +24,15 @@ app.use(express.urlencoded({extended: true}));
 
 // Enable REST services
 app.configure(express.rest());
+
+// Verify whether the oauth token is valid
+app.oauth = oAuth2Server({
+  model: oAuthModel,
+  grants: ['password'],
+  debug: true
+});
+app.use(app.oauth.errorHandler());
+app.use(app.oauth.authorise());
 
 // Connect to the db, create and register a Feathers service.
 app.use('/api/book', service({
