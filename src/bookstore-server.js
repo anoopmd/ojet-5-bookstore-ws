@@ -2,9 +2,7 @@ const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const cors = require('cors');
 const rp = require('request-promise');
-// const database = require('./database');
-// const oAuthModel = require('./oauth/access-token-model');
-// const oAuth2Server = require('node-oauth2-server');
+const oauthDisabled = true;
 
 const NeDB = require('nedb');
 const service = require('feathers-nedb');
@@ -41,34 +39,26 @@ app.use(express.urlencoded({extended: true}));
 // Enable REST services
 app.configure(express.rest());
 
-app.use(function(req, res, next) {
-  var options = {
-    method: 'GET',
-    uri: 'http://localhost:9000/check',
-    headers: {
-      'Authorization': req.headers.authorization,
-      'content-type': 'application/x-www-form-urlencoded'  // Is set automatically
-    }
-  };
+if(!oauthDisabled){
+  app.use(function(req, res, next) {
+    var options = {
+      method: 'GET',
+      uri: 'http://localhost:9000/check',
+      headers: {
+        'Authorization': req.headers.authorization,
+        'content-type': 'application/x-www-form-urlencoded'  // Is set automatically
+      }
+    };
 
-  rp(options)
-    .then(function (data) {
-      return next();
-    })
-    .catch(function (err) {
-      return next(err);
-    });
-});
-
-
-// Verify whether the oauth token is valid
-// app.oauth = oAuth2Server({
-//   model: oAuthModel,
-//   grants: ['password'],
-//   debug: true
-// });
-// app.use(app.oauth.errorHandler());
-// app.use(app.oauth.authorise());
+    rp(options)
+      .then(function (data) {
+        return next();
+      })
+      .catch(function (err) {
+        return next(err);
+      });
+  });
+}
 
 // Connect to the db, create and register a Feathers service.
 app.use('/api/book', service({
