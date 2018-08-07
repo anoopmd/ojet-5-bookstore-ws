@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "ojet-5-bookstore-ws",
-		"_postman_id": "29042a40-09bc-45b7-445f-4f3b95d3227c",
+		"_postman_id": "af29323d-c76c-309b-6313-038f577258b6",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -135,7 +135,7 @@
 			"response": []
 		},
 		{
-			"name": "Books",
+			"name": "Book",
 			"request": {
 				"url": "127.0.0.1:5000/api/book",
 				"method": "GET",
@@ -185,6 +185,60 @@
 							"type": "text"
 						}
 					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Book",
+			"request": {
+				"url": "127.0.0.1:5000/api/book",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Elon Musk\",\n\t\"author\": \"Ashlee Vance\",\n\t\"price\": 499\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Book",
+			"request": {
+				"url": "127.0.0.1:5000/api/book/837be79306e92ad6",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Updated Elon Musk\",\n\t\"author\": \"Ashlee Vance\",\n\t\"price\": 499\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Book",
+			"request": {
+				"url": "127.0.0.1:5000/api/book/837be79306e92ad6",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": ""
 			},
